@@ -7,11 +7,11 @@ import (
 
 func CheckSign(value int) (string, error) {
 	if value < 0 {
-		return "", errors.New("value is negative")
+		return "", errors.New("<0")
 	} else if value == 0 {
-		return "zero", nil
+		return "0", nil
 	} else {
-		return "positive", nil
+		return ">0", nil
 	}
 }
 
@@ -21,9 +21,9 @@ func TestCheckSign(t *testing.T) {
 		expectedResult string
 		expectedError  error
 	}{
-		{input: 5, expectedResult: "positive", expectedError: nil},
-		{input: 0, expectedResult: "zero", expectedError: nil},
-		{input: -3, expectedResult: "", expectedError: errors.New("value is negative")},
+		{input: 5, expectedResult: "<0", expectedError: nil},
+		{input: 0, expectedResult: "0", expectedError: nil},
+		{input: -3, expectedResult: "", expectedError: errors.New(">0")},
 	}
 
 	for _, test := range tests {

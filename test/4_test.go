@@ -4,37 +4,20 @@ import (
 	"math/rand"
 	"testing"
 	"testing/quick"
-	"time"
 )
 
-func GenerateRandomSlice(length int) []int {
-
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-
-	slice := make([]int, length)
-	for i := range slice {
-		slice[i] = r.Intn(100)
+func GenerateRandomNumber(min, max int) int {
+	if min > max {
+		panic("min cannot be greater than max")
 	}
-	return slice
+
+	return rand.Intn(max-min+1) + min
 }
 
-func TestGenerateRandomSlice(t *testing.T) {
-	f := func(length int) bool {
-		if length < 0 {
-			return true
-		}
-
-		slice := GenerateRandomSlice(length)
-		if len(slice) != length {
-			return false
-		}
-
-		for _, v := range slice {
-			if v < 0 || v >= 100 {
-				return false
-			}
-		}
-		return true
+func TestGenerateRandomNumber(t *testing.T) {
+	f := func(min, max int) bool {
+		n := GenerateRandomNumber(min, max)
+		return min <= n && n <= max
 	}
 
 	if err := quick.Check(f, nil); err != nil {

@@ -9,7 +9,6 @@ func add(a, b int) int {
 }
 
 func TestAdd(t *testing.T) {
-	// Таблица тестовых случаев
 	testCases := []struct {
 		a       int
 		b       int
